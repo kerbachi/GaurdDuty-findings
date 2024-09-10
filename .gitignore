@@ -1,0 +1,9 @@
+.DS_Store
+.terraform*
+terraform.tfstate
+terraform.tfstate.backup
+.venv
+*.bck
+tmp
+lambda_function.zip
+lambda_code/python/*
