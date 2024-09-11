@@ -35,8 +35,9 @@ The lambda function sends an email notification using AWS SNS
 
 # Deployment of the solution
 
-1. Update variables.tf with correct values
-2. Deployment:
+1. First, GuardDuty must be enabled, GuardDuty supports free trial for the first 30 days. You can check [this link](https://aws.amazon.com/guardduty/pricing/) for more details on the pricing and [this link] (https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html#guardduty_enable-gd) on how to enable the service.
+2. Update variables.tf with correct values
+3. Deployment:
 
     a. Option 1 (Reuse the provided packages.zip)
 
@@ -56,7 +57,7 @@ The lambda function sends an email notification using AWS SNS
 
         zip -r packages.zip python
         ```
-3. Generate GuardDuty findings
+4. Generate GuardDuty findings
 
 From a shell sesison inside EC2 running VM do a port scan to generate GuardDuty
 
@@ -73,3 +74,20 @@ PORT    STATE SERVICE
 443/tcp open  https
 ```
 
+5. Verify finding in GuardDuty
+
+Few seconds later a finding "Recon:EC2/Portscan" is added to GuardDuty.
+
+![GuardDuty finding of the port scan](pictures/GuardDuty-finding.png)
+
+6. A ticket will be open in Jira
+
+![Jira issue created from Lambda](pictures/Jira-issue.png)
+
+7. Delete all deployed resources
+
+In case you need to delete all the deployment:
+
+```
+terraform destroy
+```
