@@ -2,6 +2,7 @@ import json
 import os
 import logging
 import boto3
+import time
 from atlassian import Jira
 
 
@@ -134,6 +135,18 @@ def update_sg_of_instance(instance_id, vpc_id):
                 Groups=[isolation_sg_id]
             )
 
+        # A loop to verify that the instance is isolated
+        for i in range(10):
+            instance = ec2.describe_instances(InstanceIds=[instance_id])
+            for interfaces in instance["Reservations"][0]["Instances"][0]["NetworkInterfaces"]:
+                for group in interfaces["Groups"]:
+                    if group["GroupId"] != isolation_sg_id:
+                        print("Instance is not isolated yet")
+                        time.sleep(0.1)
+                        break
+            else:
+                print("Instance is isolated")
+                break
 
         # Remove all rules from the isolation SG
         data = sg.revoke_ingress(

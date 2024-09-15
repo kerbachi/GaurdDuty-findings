@@ -30,12 +30,12 @@ variable "jira_username" {
 
 variable "jira_password" {
     description = "Password for JIRA API call"
-    default = "***"
+    default = "****"
 }
 
 variable "jira_url" {
     description = "URL for JIRA API call"
-    default = "https://***.atlassian.net"
+    default = "https://test.atlassian.net"
 }
 
 variable "jira_project_key" {

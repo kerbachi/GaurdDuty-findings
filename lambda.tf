@@ -125,7 +125,7 @@ resource "aws_iam_role" "iam_for_lambda" {
         {
             Action = [
                 "ec2:ModifyNetworkInterfaceAttribute",
-                "ec2:RevokeSecurityGroupIngress",
+                "ec2:RevokeSecurityGroupEgress",
                 "ec2:RevokeSecurityGroupIngress",
                 "ec2:AuthorizeSecurityGroupIngress"
             ]
